@@ -28,6 +28,8 @@ jobs:
           - cliente: D
             env: cliente-d
 
+    if: matrix.cliente == github.event.inputs.cliente
+
     environment: ${{ matrix.env }}
 
     steps:
