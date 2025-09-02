@@ -1,4 +1,4 @@
-name: Deploy com ArgoCD
+name: Deploy Template
 
 on:
   workflow_dispatch:
@@ -36,13 +36,12 @@ jobs:
 
       - name: Configurar acesso ao cluster
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
-          export KUBECONFIG=$(pwd)/kubeconfig
+          echo "Acessando o cluster ${{ github.event.inputs.cliente }}"
+
+      - name: Build 
+        run: |
+          echo "Build projeto $GITHUB_REPOSITORY"
 
       - name: Deploy com ArgoCD
         run: |
-          argocd login ${{ secrets.ARGOCD_SERVER }} \
-            --username ${{ secrets.ARGOCD_USER }} \
-            --password ${{ secrets.ARGOCD_PASS }} --insecure
-
-          argocd app sync ${{ github.event.inputs.cliente }}-app
+          echo "Deploy no argo do projeto $GITHUB_REPOSITORY no clisnete ${{ github.event.inputs.cliente }}"
